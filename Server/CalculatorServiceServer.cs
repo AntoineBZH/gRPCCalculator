@@ -18,6 +18,9 @@ namespace Server
             int currentNumber = request.Number;
             int factor = 2;
 
+            if (currentNumber < 1)
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "The argument must be positive."));
+
             while (currentNumber > 1)
             {
                 if (currentNumber % factor == 0)

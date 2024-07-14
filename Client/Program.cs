@@ -20,10 +20,17 @@ namespace Server
             });
             CalculatorService.CalculatorServiceClient client = new CalculatorService.CalculatorServiceClient(channel);
 
-            Sum(10, 5, client);
-            await PrimeNumberDecompose(120, client);
-            await ComputeAverage(client, Enumerable.Range(1, 4).ToArray());
-            await FindMaximum(client, 1, 5, 3, 6, 2, 20);
+            try
+            {
+                Sum(10, 5, client);
+                await PrimeNumberDecompose(120, client);
+                await ComputeAverage(client, Enumerable.Range(1, 4).ToArray());
+                await FindMaximum(client, 1, 5, 3, 6, 2, 20);
+            }
+            catch (RpcException ex)
+            {
+                Console.WriteLine(ex.Status.Detail);
+            }
 
             await channel.ShutdownAsync();
         }
@@ -102,7 +109,7 @@ namespace Server
                 await stream.RequestStream.WriteAsync(new FindMaximumRequest() { Number = number });
             }
             await stream.RequestStream.CompleteAsync();
-            Task.WaitAll(receivingTask);
+            await receivingTask;
         }
         #endregion
     }
