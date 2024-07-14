@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{ACAD5AEB-5A76-4F1A-97A8-C222D0F0674B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{76C480CE-F52C-401A-8354-AED27A969F7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto", "proto", "{DA60882B-C532-4766-B002-137EEBFD40F4}"
+	ProjectSection(SolutionItems) = preProject
+		calculator.proto = calculator.proto
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACAD5AEB-5A76-4F1A-97A8-C222D0F0674B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACAD5AEB-5A76-4F1A-97A8-C222D0F0674B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACAD5AEB-5A76-4F1A-97A8-C222D0F0674B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACAD5AEB-5A76-4F1A-97A8-C222D0F0674B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76C480CE-F52C-401A-8354-AED27A969F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76C480CE-F52C-401A-8354-AED27A969F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76C480CE-F52C-401A-8354-AED27A969F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76C480CE-F52C-401A-8354-AED27A969F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C193D868-F7D7-41D2-B046-ED2BB02AB1BC}
+	EndGlobalSection
+EndGlobal
