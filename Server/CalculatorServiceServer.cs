@@ -45,6 +45,22 @@ namespace Server
             Console.Write(Environment.NewLine);
             return await Task.FromResult(new ComputeAverageReply() { Average = (double)sum / (double)number });
         }
+
+        public override async Task FindMaximum(IAsyncStreamReader<FindMaximumRequest> requestStream, IServerStreamWriter<FindMaximumReply> responseStream, ServerCallContext context)
+        {
+            Console.Write("The server received a FindMaximum request with the following parameters: ");
+            int currentMaximum = int.MinValue;
+            while (await requestStream.MoveNext())
+            {
+                Console.Write($"{requestStream.Current.Number} ");
+                if (currentMaximum < requestStream.Current.Number)
+                {
+                    currentMaximum = requestStream.Current.Number;
+                    await responseStream.WriteAsync(new FindMaximumReply() { Maximum = currentMaximum });
+                }
+            }
+            Console.Write(Environment.NewLine);
+        }
         #endregion
     }
 }
