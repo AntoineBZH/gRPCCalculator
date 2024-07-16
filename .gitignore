@@ -151,6 +151,10 @@ csx/
 # Windows Store app package directory
 AppPackages/
 
+# Certificates
+*.crt
+*.key
+
 # Others
 sql/
 *.Cache

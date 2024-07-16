@@ -11,12 +11,17 @@ namespace Server
         static void Main(string[] args)
         {
             Console.Title = "gRPC server";
+
             Grpc.Core.Server? server = null;
+            string serverCertificate = File.ReadAllText(Path.Combine(".", "ssl", "server.crt"));
+            string serverKey = File.ReadAllText(Path.Combine(".", "ssl", "server.key"));
+            string caCertificate = File.ReadAllText(Path.Combine(".", "ssl", "ca.crt"));
+
             try
             {
                 server = new Grpc.Core.Server()
                 {
-                    Ports = { new ServerPort(GRPC_HOST, GRPC_PORT, ServerCredentials.Insecure) },
+                    Ports = { new ServerPort(GRPC_HOST, GRPC_PORT, new SslServerCredentials([new KeyCertificatePair(serverCertificate, serverKey)], caCertificate, true)) },
                     Services = { CalculatorService.BindService(new CalculatorServiceServer()) }
                 };
                 server.Start();

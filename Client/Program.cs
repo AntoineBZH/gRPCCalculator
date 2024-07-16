@@ -5,17 +5,23 @@ namespace Server
 {
     internal class Program
     {
-        private const string GRPC_TARGET = "localhost:8800";
+        private const string GRPC_ADDRESS = "localhost";
+        private const int GRPC_PORT = 8800;
 
         static async Task Main(string[] args)
         {
             Console.Title = "gRPC client";
-            Channel? channel = new Channel(GRPC_TARGET, ChannelCredentials.Insecure);
-            await channel.ConnectAsync().ContinueWith(t =>
+
+            string clientCertificate = File.ReadAllText(Path.Combine(".", "ssl", "client.crt"));
+            string clientKey = File.ReadAllText(Path.Combine(".", "ssl", "client.key"));
+            string caCertificate = File.ReadAllText(Path.Combine(".", "ssl", "ca.crt"));
+
+            Channel? channel = new Channel(GRPC_ADDRESS, GRPC_PORT, new SslCredentials(caCertificate, new KeyCertificatePair(clientCertificate, clientKey)));
+            await channel.ConnectAsync(deadline: DateTime.UtcNow.AddMinutes(2)).ContinueWith(t =>
             {
-                if (!t.IsFaulted)
+                if (t.Status == TaskStatus.RanToCompletion)
                 {
-                    Console.WriteLine($"Connection successful with the server {GRPC_TARGET}");
+                    Console.WriteLine($"Connection successful with the server {GRPC_ADDRESS}:{GRPC_PORT}.");
                 }
             });
             CalculatorService.CalculatorServiceClient client = new CalculatorService.CalculatorServiceClient(channel);
